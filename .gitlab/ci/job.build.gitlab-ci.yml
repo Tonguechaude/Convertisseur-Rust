@@ -1,0 +1,11 @@
+###############################################################
+# Build Job
+###############################################################
+build:
+  stage: build
+  image: rust:1:70:0
+  script:
+    - cargo build --release
+  artifacts:
+    paths:
+      - target/release/
