@@ -1,1 +1,26 @@
-/target
+##### Log / cache files
+*.log
+*.cache
+
+##### IDE / Text editor
+
+# Intellij
+.idea
+*.iml
+
+# saved files
+*~
+*.bak
+*.swp
+*.backup
+
+##### GIT
+
+# Git - Merge temp file
+*.orig
+
+# Rust
+Cargo.lock
+target
+Cargo.toml
+
