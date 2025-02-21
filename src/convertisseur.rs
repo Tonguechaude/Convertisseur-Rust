@@ -28,12 +28,6 @@ fn cool_tag() -> () {
 fn welcome_screen() {
     loop {
         screen_cleaner();
-
-        cool_tag();
-        let a = time::Duration::from_millis(4000);
-        sleep(a);
-
-        screen_cleaner();
         println!("-------------------------------------------");
         println!(">>> Welcome to Number System Converter <<<");
         println!("------------------------------------------- \n");
@@ -43,7 +37,8 @@ fn welcome_screen() {
         println!("> 2. Decimal Conversion");
         println!("> 3. Octal Conversion");
         println!("> 4. Hexadecimal Conversion");
-        println!("> 5. Exit the Program \n \n");
+        println!("> 5. Print cool tag");
+        println!("> 6. Exit the Program \n \n");
 
         println!("Enter the number & Hit ENTER: ");
 
@@ -61,7 +56,7 @@ fn welcome_screen() {
                 println!("Error: the number must be between 1 to 5.");
                 println!("Press any key to continue...");
                 wait_for_keypress();
-                continue;
+                continue
             }
         };
 
@@ -70,7 +65,8 @@ fn welcome_screen() {
             2 => user_input(2),
             3 => user_input(3),
             4 => user_input(4),
-            5 => exit_screen(),
+            5 => user_input(5),
+            6 => exit_screen(),
             _ => {
                 println!("\nError: the number must be between 1 to 5.\n");
                 println!("Press any key to continue...");
@@ -172,7 +168,15 @@ fn user_input(choice: i32) {
             }
         },
 
-        // Normalement ça n’arrive jamais
+        5 => { //code pour print le tag bien soigné
+            screen_cleaner();
+            cool_tag();
+            let a = std::time::Duration::from_millis(5000);
+            sleep(a);
+            screen_cleaner();
+        }
+
+        // Default (Normalement ça n’arrive jamais)
         _ => println!("\n>> Unexpected Error occurred. Report to program Administrator <<")
     }
 }
@@ -261,8 +265,9 @@ fn exit_screen() {
     println!(" >>> Creator : Tonguechaude <<< ");
     println!("-------------------------------------------");
 
+    println!("> Workshop : https://tonguechaue.fr");
     println!("> GitHub: https://github.com/Tonguechaude");
-    println!("> LinkedIn: https://www.linkedin.com/in/\n");
+    println!("> LinkedIn: https://www.linkedin.com/in/evan-c-29805a276/ \n");
 
     std::process::exit(0);
 }
