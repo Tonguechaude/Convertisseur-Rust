@@ -20,7 +20,4 @@
 *.orig
 
 # Rust
-Cargo.lock
 target
-Cargo.toml
-

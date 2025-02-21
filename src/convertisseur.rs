@@ -1,19 +1,17 @@
 use std::fmt::Debug;
-use std::{io, time, u64};
-use std::io::{Read};
+use std::io::Read;
 use std::thread::sleep;
+use std::{io, time, u64};
 
-const ENTER : i8 =  13;
-const TAB : i8 = 9;
-const BKSP : i8 = 8;
+const ENTER: i8 = 13;
+const TAB: i8 = 9;
+const BKSP: i8 = 8;
 
-fn main()
-{
+fn main() -> () {
     welcome_screen();
 }
 
-fn cool_tag ()
-{
+fn cool_tag() -> () {
     println!("
     ▄▄▄█████▓ ▒█████   ███▄    █   ▄████  █    ██ ▓█████     ▄████▄   ██░ ██  ▄▄▄       █    ██ ▓█████▄ ▓█████
     ▓  ██▒ ▓▒▒██▒  ██▒ ██ ▀█   █  ██▒ ▀█▒ ██  ▓██▒▓█   ▀    ▒██▀ ▀█  ▓██░ ██▒▒████▄     ██  ▓██▒▒██▀ ██▌▓█   ▀
@@ -25,22 +23,15 @@ fn cool_tag ()
       ░      ░ ░ ░ ▒     ░   ░ ░ ░ ░   ░  ░░░ ░ ░    ░      ░         ░  ░░ ░  ░   ▒    ░░░ ░ ░  ░ ░  ░    ░
                  ░ ░           ░       ░    ░        ░  ░   ░ ░       ░  ░  ░      ░  ░   ░        ░       ░  ░
                                                             ░                                    ░             ");
-
-
-
-
 }
 
-fn welcome_screen ()
-{
-    loop
-    {
+fn welcome_screen() {
+    loop {
         screen_cleaner();
 
         cool_tag();
         let a = time::Duration::from_millis(4000);
         sleep(a);
-
 
         screen_cleaner();
         println!("-------------------------------------------");
@@ -88,11 +79,9 @@ fn welcome_screen ()
             }
         }
     }
-
 }
 
-fn user_input (choice : i32)
-{
+fn user_input(choice: i32) {
     screen_cleaner();
 
     match choice // code pour le binaire
@@ -188,17 +177,16 @@ fn user_input (choice : i32)
     }
 }
 
-fn digit_checker(num: u64, choice: i32) -> bool
-{
+fn digit_checker(num: u64, choice: i32) -> bool {
     let mut temp = num;
 
     while temp != 0 {
         let rem = temp % 10;
 
         let valid = match choice {
-            1 => rem == 0 || rem == 1,  // binary
-            2 => rem >= 0 && rem <= 9,  // decimal
-            3 => rem >= 0 && rem <= 7,  // octal
+            1 => rem == 0 || rem == 1, // binary
+            2 => rem >= 0 && rem <= 9, // decimal
+            3 => rem >= 0 && rem <= 7, // octal
             _ => false,
         };
 
@@ -217,39 +205,34 @@ where
     <T as std::str::FromStr>::Err: Debug,
 {
     let mut input = String::new();
-    io::stdin().read_line(&mut input).expect("Failed to read line");
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read line");
     input.trim().parse().expect("Invalid input")
 }
 
-fn screen_cleaner ()
-{
+fn screen_cleaner() {
     use std::process::Command;
-    Command::new("clear")
-        .status()
-        .unwrap();
+    Command::new("clear").status().unwrap();
 }
 
-fn reset_color ()
-{
+fn reset_color() {
     println!("\x1B[0m");
-
 }
 
-fn wait_for_keypress()
-{
+fn wait_for_keypress() {
     let _ = io::stdin() // accede à l’entrée standard
-        .read(&mut [0u8]).unwrap(); // bloque le programme en attendant que l’utilisateur appuie sur une touche
+        .read(&mut [0u8])
+        .unwrap(); // bloque le programme en attendant que l’utilisateur appuie sur une touche
 }
 
-fn conversion_title()
-{
+fn conversion_title() {
     println!("\n---------------------------");
     println!(">>> Conversion Results <<<");
     println!("---------------------------");
 }
 
-fn try_again(choice: i32)
-{
+fn try_again(choice: i32) {
     println!("\n\nDo you want to try again [y/N]: ");
 
     // Lire l’entrée de l’utilisateur
@@ -258,8 +241,7 @@ fn try_again(choice: i32)
         .read_line(&mut input)
         .expect("Failed to read line");
 
-    let input = input
-        .trim();
+    let input = input.trim();
 
     match input {
         "Y" | "y" => user_input(choice),
@@ -273,8 +255,7 @@ fn try_again(choice: i32)
     }
 }
 
-fn exit_screen()
-{
+fn exit_screen() {
     screen_cleaner();
     println!("-------------------------------------------");
     println!(" >>> Creator : Tonguechaude <<< ");
@@ -289,8 +270,7 @@ fn exit_screen()
 /* Conversions */
 
 // fonctions conversions binaire → décimal
-pub fn binary_to_octal (binary: u64) -> u64
-{
+pub fn binary_to_octal(binary: u64) -> u64 {
     let mut num = binary;
     let mut decimal = 0;
     let mut i = 0;
@@ -322,8 +302,7 @@ pub fn binary_to_octal (binary: u64) -> u64
 }
 
 // fonctions conversions binaire → décimal
-pub fn binary_to_decimal (binary: u64) -> u64
-{
+pub fn binary_to_decimal(binary: u64) -> u64 {
     let mut num = binary;
     let mut decimal = 0;
     let mut i = 0;
@@ -339,8 +318,7 @@ pub fn binary_to_decimal (binary: u64) -> u64
 }
 
 // fonctions conversions binaire → hexadécimal
-pub fn binary_to_hexadecimal (binary: u64) -> String
-{
+pub fn binary_to_hexadecimal(binary: u64) -> String {
     let mut bi = binary;
     let mut sum = 0;
     let mut i = 0;
@@ -361,8 +339,10 @@ pub fn binary_to_hexadecimal (binary: u64) -> String
     }
 
     // Création de la chaîne hexadécimale
-    let hex_string: String = remain.iter().rev().map(|&digit| {
-        match digit {
+    let hex_string: String = remain
+        .iter()
+        .rev()
+        .map(|&digit| match digit {
             10 => 'A',
             11 => 'B',
             12 => 'C',
@@ -370,80 +350,59 @@ pub fn binary_to_hexadecimal (binary: u64) -> String
             14 => 'E',
             15 => 'F',
             _ => std::char::from_digit(digit as u32, 10).unwrap(),
-        }
-    }).collect();
+        })
+        .collect();
 
     hex_string
 }
 
-
 // fonctions conversions octal → binary
-pub fn octal_to_binary (octal: u64) -> String
-{
+pub fn octal_to_binary(octal: u64) -> String {
     let decimal_value = u64::from_str_radix(&format!("{}", octal), 8).unwrap();
     return format!("{:b}", decimal_value);
 }
 
 // fonctions conversions binaire → décimal
-pub fn octal_to_decimal (octal: u64) -> String
-{
-    let octal_str : String = octal.to_string();
+pub fn octal_to_decimal(octal: u64) -> String {
+    let octal_str: String = octal.to_string();
     let decimal_value = u64::from_str_radix(&octal_str, 8).unwrap();
     return decimal_value.to_string();
 }
 
 // fonctions conversions binaire → décimal
-pub fn octal_to_hexadecimal (octal: u64) -> String
-{
+pub fn octal_to_hexadecimal(octal: u64) -> String {
     let decimal_value = u64::from_str_radix(&format!("{}", octal), 8).unwrap();
     return format!("{:X}", decimal_value);
 }
 
-
 // fonctions conversions décimal → binaire
-pub fn decimal_to_binary (decimal : u64) -> String
-{
+pub fn decimal_to_binary(decimal: u64) -> String {
     return format!("{:b}", decimal);
-
 }
 
 // fonctions conversions décimal → octal
-pub fn decimal_to_octal (decimal : u64) -> String
-{
+pub fn decimal_to_octal(decimal: u64) -> String {
     return format!("{:o}", decimal);
-
 }
 
 // fonctions conversions décimal → hexadécimal
-pub fn decimal_to_hexadecimal (decimal : u64) -> String
-{
+pub fn decimal_to_hexadecimal(decimal: u64) -> String {
     return format!("{:X}", decimal);
-
 }
 
-
 // fonctions conversions hexadécimal → binaire
-pub fn hexadecimal_to_binary (hexadecimal : &str) -> String
-{
+pub fn hexadecimal_to_binary(hexadecimal: &str) -> String {
     let decimal = u64::from_str_radix(hexadecimal, 16).unwrap();
     return format!("{:b}", decimal);
 }
 
 // fonctions conversions hexadécimal → octal
-pub fn hexadecimal_to_octal (hexadecimal : &str) -> String
-{
+pub fn hexadecimal_to_octal(hexadecimal: &str) -> String {
     let decimal = u64::from_str_radix(hexadecimal, 16).unwrap();
     return format!("{:o}", decimal);
 }
 
 // fonctions conversions hexadécimal → décimale
-pub fn hexadecimal_to_decimal (hexadecimal : &str) -> String
-{
+pub fn hexadecimal_to_decimal(hexadecimal: &str) -> String {
     return u64::from_str_radix(hexadecimal, 16).unwrap().to_string();
-
 }
-
-
-
-
-
