@@ -1,7 +1,8 @@
+#![allow(dead_code)]
 use std::fmt::Debug;
+use std::io;
 use std::io::Read;
 use std::thread::sleep;
-use std::{io, time, u64};
 
 const ENTER: i8 = 13;
 const TAB: i8 = 9;
@@ -28,11 +29,11 @@ fn cool_tag() -> () {
 fn welcome_screen() {
     loop {
         screen_cleaner();
-        println!("-------------------------------------------");
-        println!(">>> Welcome to Number System Converter <<<");
-        println!("------------------------------------------- \n");
+        println!("\x1B[36m-------------------------------------------\x1B[0m");
+        println!("\x1B[32m>>> Welcome to Number System Converter <<<\x1B[0m");
+        println!("\x1B[36m-------------------------------------------\x1B[0m\n");
 
-        println!(">> Select Conversion Type:");
+        println!("\x1B[33m>> Select Conversion Type:\x1B[0m");
         println!("> 1. Binary Conversion");
         println!("> 2. Decimal Conversion");
         println!("> 3. Octal Conversion");
@@ -53,7 +54,8 @@ fn welcome_screen() {
         {
             Ok(num) => num,
             Err(_) => {
-                println!("Error: the number must be between 1 to 5.");
+
+                println!("\x1B[31mError: Please enter a valid option (1-5).\x1B[0m");
                 println!("Press any key to continue...");
                 wait_for_keypress();
                 continue
@@ -189,8 +191,8 @@ fn digit_checker(num: u64, choice: i32) -> bool {
 
         let valid = match choice {
             1 => rem == 0 || rem == 1, // binary
-            2 => rem >= 0 && rem <= 9, // decimal
-            3 => rem >= 0 && rem <= 7, // octal
+            2 => rem <= 9,             // decimal
+            3 => rem <= 7,             // octal
             _ => false,
         };
 
